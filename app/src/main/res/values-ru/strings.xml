@@ -1,0 +1,14 @@
+<resources>
+    <string name="channels_title">Чаты</string>
+    <string name="select_chat">Выберите чат</string>
+    <string name="no_channels">Чатов нет</string>
+    <string name="no_messages">Сообщений пока нет</string>
+    <string name="load_error">Не удалось загрузить</string>
+    <string name="retry">Повторить</string>
+    <string name="back_to_channels">Назад к чатам</string>
+    <string name="close_chat">Закрыть чат</string>
+    <string name="close_image">Закрыть картинку</string>
+    <string name="image_description">Картинка</string>
+    <string name="image_load_error">Не удалось загрузить картинку</string>
+    <string name="unsupported_message">Неподдерживаемое сообщение</string>
+</resources>

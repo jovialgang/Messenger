@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name" translatable="false">Messenger</string>
+    <string name="channels_title">Chats</string>
+    <string name="select_chat">Select a chat</string>
+    <string name="no_channels">No chats</string>
+    <string name="no_messages">No messages yet</string>
+    <string name="load_error">Failed to load</string>
+    <string name="retry">Retry</string>
+    <string name="back_to_channels">Back to chats</string>
+    <string name="close_chat">Close chat</string>
+    <string name="close_image">Close image</string>
+    <string name="image_description">Image</string>
+    <string name="image_load_error">Failed to load image</string>
+    <string name="unsupported_message">Unsupported message</string>
+</resources>

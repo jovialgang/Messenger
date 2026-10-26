@@ -3,13 +3,11 @@ package com.miroshnikov.messenger.data
 interface ChatRepository {
     suspend fun channels(): List<String>
 
-    /** Up to [PAGE_SIZE] messages of [channel] with id less than [beforeId], newest first. */
     suspend fun messagesBefore(channel: String, beforeId: Long): List<ChatMessage>
 
     companion object {
         const val PAGE_SIZE = 20
 
-        /** Greater than any real id: requesting before it returns the latest messages. */
         const val LATEST_ID = 2_147_483_647L
     }
 }

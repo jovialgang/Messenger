@@ -29,7 +29,6 @@ val chatJson: Json = Json {
     coerceInputValues = true
 }
 
-/** The server is sometimes slow to respond; the default 10 s timeouts are not enough. */
 fun createOkHttpClient(): OkHttpClient =
     OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)

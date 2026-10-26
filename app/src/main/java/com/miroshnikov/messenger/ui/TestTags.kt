@@ -1,6 +1,5 @@
 package com.miroshnikov.messenger.ui
 
-/** Exposed as resource-id (testTagsAsResourceId) for external UI tests. */
 object TestTags {
     const val CHANNELS_TITLE = "channels_title"
     const val CHANNELS_LIST = "channels_list"

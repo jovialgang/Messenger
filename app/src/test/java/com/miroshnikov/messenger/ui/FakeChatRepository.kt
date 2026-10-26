@@ -26,6 +26,5 @@ class FakeChatRepository : ChatRepository {
     }
 }
 
-/** Text messages with the given ids, newest first (as the server returns them). */
 fun textMessages(ids: IntRange): List<ChatMessage> =
     ids.reversed().map { ChatMessage(it.toLong(), "user", 0, MessageContent.Text("message $it")) }

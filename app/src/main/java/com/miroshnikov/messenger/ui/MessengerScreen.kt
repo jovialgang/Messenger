@@ -45,7 +45,6 @@ fun MessengerContent(
         if (image != null) actions.closeImage() else actions.closeChat()
     }
 
-    // Hoisted here so scroll positions survive rotation and an opened image.
     val channelsListState = rememberLazyListState()
     val messagesListState = rememberSaveable(chat?.channel, saver = LazyListState.Saver) { LazyListState() }
 

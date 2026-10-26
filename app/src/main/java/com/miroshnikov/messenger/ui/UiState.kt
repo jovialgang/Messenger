@@ -19,7 +19,6 @@ sealed interface ChannelsState {
 
 data class ChatState(
     val channel: String,
-    /** Newest first. */
     val messages: PersistentList<ChatMessage> = persistentListOf(),
     val isLoading: Boolean = false,
     val hasError: Boolean = false,

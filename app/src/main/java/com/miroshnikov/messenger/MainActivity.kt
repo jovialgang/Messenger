@@ -9,6 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
+import com.miroshnikov.messenger.ui.MessengerScreen
 import com.miroshnikov.messenger.ui.theme.MessengerTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +22,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier
                         .fillMaxSize()
                         .semantics { testTagsAsResourceId = true }
-                ) { }
+                ) { innerPadding ->
+                    MessengerScreen(contentPadding = innerPadding)
+                }
             }
         }
     }

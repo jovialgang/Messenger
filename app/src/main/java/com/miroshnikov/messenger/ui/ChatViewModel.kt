@@ -125,7 +125,7 @@ class ChatViewModel(
 private fun ChatState.appendOlder(page: List<ChatMessage>, beforeId: Long): ChatState {
     val older = page.filter { it.id < beforeId }
     return copy(
-        messages = messages.addAll(older),
+        messages = messages.addingAll(older),
         isLoading = false,
         endReached = page.size < ChatRepository.PAGE_SIZE || older.isEmpty(),
     )

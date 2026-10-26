@@ -7,6 +7,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import java.util.concurrent.TimeUnit
 
 object ServerUrls {
     val base: HttpUrl = "https://faerytea.name/".toHttpUrl()
@@ -27,6 +28,13 @@ val chatJson: Json = Json {
     ignoreUnknownKeys = true
     coerceInputValues = true
 }
+
+/** The server is sometimes slow to respond; the default 10 s timeouts are not enough. */
+fun createOkHttpClient(): OkHttpClient =
+    OkHttpClient.Builder()
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .build()
 
 fun createChatApi(client: OkHttpClient, baseUrl: HttpUrl = ServerUrls.base): ChatApi =
     Retrofit.Builder()

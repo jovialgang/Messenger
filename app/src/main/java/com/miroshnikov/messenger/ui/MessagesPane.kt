@@ -27,8 +27,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,6 +42,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import coil3.compose.AsyncImagePainter
 import com.miroshnikov.messenger.R
 import com.miroshnikov.messenger.data.ChatMessage
 import com.miroshnikov.messenger.data.MessageContent
@@ -178,17 +181,7 @@ private fun MessageItem(message: ChatMessage, onOpenImage: (String) -> Unit) {
                     style = MaterialTheme.typography.bodyLarge,
                 )
 
-                is MessageContent.Image -> AsyncImage(
-                    model = ServerUrls.thumbnail(content.link),
-                    contentDescription = stringResource(R.string.image_description),
-                    modifier = Modifier
-                        .size(200.dp)
-                        .clip(MaterialTheme.shapes.small)
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
-                        .clickable { onOpenImage(content.link) }
-                        .testTag(TestTags.MESSAGE_IMAGE),
-                    contentScale = ContentScale.Crop,
-                )
+                is MessageContent.Image -> Thumbnail(content.link, onClick = { onOpenImage(content.link) })
 
                 MessageContent.Unsupported -> Text(
                     text = stringResource(R.string.unsupported_message),
@@ -196,6 +189,38 @@ private fun MessageItem(message: ChatMessage, onOpenImage: (String) -> Unit) {
                     fontStyle = FontStyle.Italic,
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun Thumbnail(link: String, onClick: () -> Unit) {
+    var failed by remember(link) { mutableStateOf(false) }
+    Box(
+        modifier = Modifier
+            .size(200.dp)
+            .clip(MaterialTheme.shapes.small)
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .clickable(onClick = onClick)
+            .testTag(TestTags.MESSAGE_IMAGE),
+        contentAlignment = Alignment.Center,
+    ) {
+        AsyncImage(
+            model = ServerUrls.thumbnail(link),
+            contentDescription = stringResource(R.string.image_description),
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Fit,
+            onState = { failed = it is AsyncImagePainter.State.Error },
+        )
+        if (failed) {
+            Icon(
+                painter = painterResource(R.drawable.ic_broken_image),
+                contentDescription = stringResource(R.string.image_load_error),
+                modifier = Modifier
+                    .size(48.dp)
+                    .testTag(TestTags.MESSAGE_IMAGE_ERROR),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
     }
 }

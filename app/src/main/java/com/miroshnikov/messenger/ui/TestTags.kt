@@ -12,6 +12,7 @@ object TestTags {
     const val MESSAGE_AUTHOR = "message_author"
     const val MESSAGE_TEXT = "message_text"
     const val MESSAGE_IMAGE = "message_image"
+    const val MESSAGE_IMAGE_ERROR = "message_image_error"
     const val SELECT_CHAT = "select_chat"
     const val IMAGE_SCREEN = "image_screen"
     const val FULL_IMAGE = "full_image"

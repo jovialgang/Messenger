@@ -8,10 +8,11 @@ import coil3.network.okhttp.OkHttpNetworkFetcherFactory
 import com.miroshnikov.messenger.data.ChatRepository
 import com.miroshnikov.messenger.data.NetworkChatRepository
 import com.miroshnikov.messenger.data.createChatApi
+import com.miroshnikov.messenger.data.createOkHttpClient
 import okhttp3.OkHttpClient
 
 class MessengerApplication : Application(), SingletonImageLoader.Factory {
-    private val okHttpClient: OkHttpClient by lazy { OkHttpClient() }
+    private val okHttpClient: OkHttpClient by lazy { createOkHttpClient() }
 
     val repository: ChatRepository by lazy { NetworkChatRepository(createChatApi(okHttpClient)) }
 

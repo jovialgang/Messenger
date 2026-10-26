@@ -32,4 +32,12 @@ class ServerUrlsTest {
     fun ignoresLeadingSlash() {
         assertEquals("https://faerytea.name/img/a/b.png", ServerUrls.image("/a/b.png"))
     }
+
+    @Test
+    fun clientWaitsForSlowServer() {
+        val client = createOkHttpClient()
+
+        assertEquals(30_000, client.connectTimeoutMillis)
+        assertEquals(30_000, client.readTimeoutMillis)
+    }
 }

@@ -118,6 +118,18 @@ class MessengerContentTest {
     }
 
     @Test
+    fun brokenThumbnailShowsPlaceholderAndStillOpensImage() {
+        show(UiState(channels = channels, chat = chat), landscape = false)
+
+        composeRule.waitUntil(15_000) {
+            composeRule.onAllNodesWithTag(TestTags.MESSAGE_IMAGE_ERROR, useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty()
+        }
+        composeRule.onNodeWithTag(TestTags.MESSAGE_IMAGE).performClick()
+
+        assertEquals(listOf("open:pic/cat.png"), actions.calls)
+    }
+
+    @Test
     fun imageScreenClosesByButtonAndBack() {
         show(UiState(channels = channels, chat = chat, openedImage = "pic/cat.png"), landscape = false)
 

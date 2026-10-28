@@ -1,4 +1,4 @@
-package com.miroshnikov.messenger.ui
+package com.miroshnikov.messenger
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -19,33 +19,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
-import com.miroshnikov.messenger.R
-import com.miroshnikov.messenger.data.ServerUrls
 
 @Composable
-fun ImageScreen(
-    link: String,
-    contentPadding: PaddingValues,
-    onClose: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .testTag(TestTags.IMAGE_SCREEN),
-    ) {
+fun ImageScreen(link: String, contentPadding: PaddingValues, onClose: () -> Unit) {
+    Box(Modifier.fillMaxSize().background(Color.Black).testTag("image_screen")) {
         SubcomposeAsyncImage(
-            model = ServerUrls.image(link),
+            model = ChatServer.imageUrl(link),
             contentDescription = stringResource(R.string.image_description),
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(contentPadding)
-                .testTag(TestTags.FULL_IMAGE),
+            modifier = Modifier.fillMaxSize().padding(contentPadding).testTag("full_image"),
             contentScale = ContentScale.Fit,
             loading = {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    CircularProgressIndicator(Modifier.testTag(TestTags.LOADING))
+                    CircularProgressIndicator(Modifier.testTag("loading"))
                 }
             },
             error = {
@@ -56,10 +41,7 @@ fun ImageScreen(
         )
         IconButton(
             onClick = onClose,
-            modifier = Modifier
-                .padding(contentPadding)
-                .padding(8.dp)
-                .testTag(TestTags.CLOSE_IMAGE),
+            modifier = Modifier.padding(contentPadding).padding(8.dp).testTag("close_image"),
         ) {
             Icon(painterResource(R.drawable.ic_close), stringResource(R.string.close_image), tint = Color.White)
         }
